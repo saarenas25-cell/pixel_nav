@@ -1,0 +1,9 @@
+Condiciones del proyecto.
+
+• El proyecto debe tener funcionalidad tanto lógica como grafica.
+• Deben utilizar condicionales, ciclos, funciones, clases, listas, diccionarios
+• Deben tener una interacción visual con opciones que generen funcionalidad
+• Deben tener una lógica estructurada de un proyecto funcional
+• Deben crear una Librería propia y usarla
+• Deben utilizar la librería Math o una librería similar
+• Deben tener una historia coherente de implementación si es un juego o una solución a un problema real si es un proyecto
