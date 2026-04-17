@@ -7,3 +7,27 @@ Condiciones del proyecto.
 • Deben crear una Librería propia y usarla
 • Deben utilizar la librería Math o una librería similar
 • Deben tener una historia coherente de implementación si es un juego o una solución a un problema real si es un proyecto
+
+
+Persona 1 — Gameplay / Lógica
+
+Se encarga de:
+
+Movimiento jugador
+Disparo
+Enemigos
+Colisiones
+Sistema de puntaje
+Power-ups
+Procedural básico
+
+Persona 2 — Interfaz / Sistema
+
+Se encarga de:
+
+Menú principal
+Menú pausa
+UI (vidas, puntaje)
+Pantallas (game over, win)
+Sonido (si meten)
+Estados del juego (menu, jugando, pausa)
