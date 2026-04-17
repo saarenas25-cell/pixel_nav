@@ -13,7 +13,7 @@ Persona 1 — Gameplay / Lógica
 
 Se encarga de:
 
-Movimiento jugador
+Movimiento jugador 
 Disparo
 Enemigos
 Colisiones

@@ -1,3 +1,6 @@
+*Este documento representa la estructura actual del proyecto y su planificación.*
+*Algunas carpetas pueden estar en desarrollo o pendientes de implementación.*
+
 #  Estructura del Proyecto - Pixel Nav 
 
 Este documento describe la organización de carpetas y archivos del proyecto, así como la función de cada uno dentro del desarrollo del videojuego.
@@ -6,87 +9,96 @@ Este documento describe la organización de carpetas y archivos del proyecto, as
 
 ##  Estructura general
 
-```
 pixel_nav/
-├── src/
-├── assets/
-├── data/
-├── docs/
-├── README.md
-├── requirements.txt
-```
+├── src/                    ## **codigo fuente**
+|   ├──main.py
+|   ├──players/
+|   |  ├──__init__.py
+|   |  ├──jugador.py
+|   ├──utilidades/
+|      ├──__init__.py
+|      ├──librerias_propias.py
+├── assets/                 ##  **imagenes, sonido, fuesntes**
+├── data/                   ##  **Almacena datos del juego**
+├── docs/                   ##  **documentacion**
+|   ├──documentacion.md
+|   ├──estructura.md
+├── ui/                     ##  **Menús, interfaz y HUD**
+├── README.md               ##  **explicacion del prollecto**
+├── requirements.txt        ##  **dependencias**
+
 
 ---
 
-##  src/
+##  src/ 
 
 Contiene todo el código fuente del videojuego. Aquí se encuentra la lógica principal, las clases y funciones que controlan el comportamiento del juego.
 
 **Archivos principales:**
 
-* `main.py`: Punto de entrada del juego. Inicializa Pygame y ejecuta el bucle principal.
-* `nave.py`: Contiene la clase de la nave del jugador y su comportamiento.
-* `enemigos.py`: Maneja la lógica y comportamiento de los enemigos.
-* `utilidades.py`: Librería propia del proyecto con funciones reutilizables (cálculos, lógica auxiliar, etc.).
+*main.py*: Punto de entrada del juego. Inicializa Pygame y ejecuta el bucle principal.
+*players/*: pundo donde se encuntra el odjeto de renderisar el jugador.
+    **__init__.py**:
+    Permite que la carpeta 'players' sea tratada como un módulo de Python y facilita la importación de sus clases.
+    **jugador.py**:
+    Define la clase Jugador, incluyendo:
+    - Movimiento
+    - Renderizado
+    - Límites de pantalla
+*utilidades/*: punto donde se encuentran las librerias propias
+    **__init__.py**:
+    Permite que la carpeta 'utilidades' sea tratada como un módulo de Python y facilita la importación de sus clases.
+    **librerias_propia.py**:
+    se encuntra reservado para las librerias propias requeridas por el prollecto
+
+--
+
+##  assets/ 
+
+reservada Contiene todos los recursos visuales y auditivos utilizados en el juego.
 
 ---
 
-##  assets/
+##  data/ 
 
-Contiene todos los recursos visuales y auditivos utilizados en el juego.
-
-**Subcarpetas:**
-
-* `imagenes/`: Sprites, fondos y gráficos del juego.
-* `sonidos/`: Efectos de sonido y música.
+reservada para Almacena información del juego que puede cambiar durante la ejecución, como:
+- Puntajes
+- Configuraciones
+- Progreso del jugador
 
 ---
 
-##  data/
+##  docs/ 
 
-Almacena datos del juego que pueden cambiar durante la ejecución.
+Contiene la documentación del proyecto en formato .md
 
-**Ejemplos:**
+Incluye:
 
-* Puntajes del jugador
-* Configuraciones
-* Estados guardados
-
----
-
-##  docs/
-
-Contiene la documentación del proyecto en formato Markdown.
-
-**Archivos:**
-
-* `documentacion.md`: Documento principal del proyecto (explicación general, historia, funcionamiento).
-* `estructura.md`: Descripción de la estructura del proyecto.
+**documentacion.md** → Explicación completa del proyecto  
+**estructura.md** → Organización del código  
 
 ---
 
-##  README.md
+##  ui/ 
 
-Archivo principal de presentación del proyecto. Incluye una descripción general, instrucciones de uso y ejecución.
-
----
-
-##  requirements.txt
-
-Lista de dependencias necesarias para ejecutar el proyecto.
-
-**Ejemplo:**
-
-```
-pygame
-```
+reservada para los elementos de interfaz gráfica del juego, como:
+- Menú principal
+- Menú de pausa
+- HUD (información en pantalla)
 
 ---
 
-##  Notas adicionales
+##  README.md 
 
-* El proyecto está organizado de manera modular para facilitar su mantenimiento y escalabilidad.
-* Se separa la lógica del juego de los recursos gráficos para una mejor estructura.
-* Se implementa una librería propia (`utilidades.py`) para cumplir con los requisitos del proyecto.
+Archivo principal de presentación del proyecto. Incluye:
+- Descripción general
+- Controles
+- Instrucciones de ejecución
+
+---
+
+##  requirements.txt 
+
+Lista de dependencias necesarias para ejecutar el proyecto, como la librería Pygame.
 
 ---
