@@ -3,10 +3,10 @@ from players.jugador import Jugador
 
 pygame.init()
 reloj = pygame.time.Clock()
-pantalla = pygame.display.set_mode((720, 720), pygame.NOFRAME)
+pantalla = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Pixel Nav") 
 
-player = Jugador(100, 680)
+player = Jugador(pantalla.get_width() // 2, pantalla.get_height() // 2)
 print (pantalla)
 
 ejecutando = True
@@ -25,7 +25,9 @@ while ejecutando:
 #Lógica (movimiento, etc.)
     teclas = pygame.key.get_pressed()
     player.mover(teclas)
-    print(f"Posición del jugador: ({player.x}, {player.y})")
+    player.limite_pantalla(pantalla.get_width(), pantalla.get_height())
+
+
 #Dibujar
     player.dibujar(pantalla)
 #flip()
