@@ -15,6 +15,10 @@ pixel_nav/
 |   ├──players/
 |   |  ├──__init__.py
 |   |  ├──jugador.py
+│   ├── proyectiles/
+│   │   ├── __init__.py
+│   │   ├── proyectil.py
+│   │   ├── bala.py
 |   ├──utilidades/
 |      ├──__init__.py
 |      ├──librerias_propias.py

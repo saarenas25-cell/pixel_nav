@@ -1,5 +1,6 @@
 import pygame
 from players.jugador import Jugador
+from proyectiles.bala import Bala
 
 pygame.init()
 reloj = pygame.time.Clock()
@@ -7,7 +8,8 @@ pantalla = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Pixel Nav") 
 
 player = Jugador(pantalla.get_width() // 2, pantalla.get_height() // 2)
-print (pantalla)
+balas = []
+
 
 ejecutando = True
 while ejecutando:
@@ -20,16 +22,25 @@ while ejecutando:
                 ejecutando = False
         if evento.type == pygame.VIDEORESIZE:
             pantalla = pygame.display.set_mode((evento.w, evento.h), pygame.RESIZABLE)
+
+        ##eventos de disparo
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_SPACE:
+                balas.append(Bala(player.x+20 , player.y, direccion=1))
+        
+
+
     pantalla.fill((255, 255, 255))
 
 #Lógica (movimiento, etc.)
     teclas = pygame.key.get_pressed()
     player.mover(teclas)
-    player.limite_pantalla(pantalla.get_width(), pantalla.get_height())
-
-
+    player.limite_pantalla(pantalla.get_width() , pantalla.get_height())
 #Dibujar
     player.dibujar(pantalla)
+    for bala in balas:
+        bala.mover()
+        bala.dibujar(pantalla)
 #flip()
     pygame.display.flip()
 #tick()
