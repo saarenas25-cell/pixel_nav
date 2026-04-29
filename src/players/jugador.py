@@ -5,8 +5,8 @@ class Jugador:
         self.x = x
         self.y = y
         self.color = (0, 0, 255) 
-        self.ancho = 50
-        self.alto = 50
+        self.ancho = 30
+        self.alto = 60
 
     def mover(self, teclas):
         if teclas[pygame.K_LEFT]:

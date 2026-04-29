@@ -1,49 +1,155 @@
 import pygame
-from players.jugador import Jugador
+from players.jugador import Jugador 
+from players.hud import HUD
 from proyectiles.bala import Bala
 
+# ---------------------------------
+# INICIALIZAR PYGAME
+# ---------------------------------
 pygame.init()
-reloj = pygame.time.Clock()
-pantalla = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-pygame.display.set_caption("Pixel Nav") 
 
-player = Jugador(pantalla.get_width() // 2, pantalla.get_height() // 2)
+# ---------------------------------
+# CONFIGURACIÓN DE PANTALLA
+# ---------------------------------
+pantalla = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+pygame.display.set_caption("Pixel Nav")
+
+ANCHO = pantalla.get_width()
+ALTO = pantalla.get_height()
+
+reloj = pygame.time.Clock()
+
+# ---------------------------------
+# CREAR OBJETOS
+# ---------------------------------
+jugador = Jugador(ANCHO // 2, ALTO // 2)
+hud = HUD(ANCHO, ALTO)
+
 balas = []
 
+# ---------------------------------
+# VARIABLES DEL JUEGO
+# ---------------------------------
+vida = 100
+energia = 100
+puntaje = 0
+monedas = 0
 
 ejecutando = True
+
+# ---------------------------------
+# BUCLE PRINCIPAL
+# ---------------------------------
 while ejecutando:
-#Eventos
+
+    # ---------------------------------
+    # EVENTOS
+    # ---------------------------------
     for evento in pygame.event.get():
+
         if evento.type == pygame.QUIT:
             ejecutando = False
+
         elif evento.type == pygame.KEYDOWN:
+
+            # SALIR
             if evento.key == pygame.K_ESCAPE:
                 ejecutando = False
-        if evento.type == pygame.VIDEORESIZE:
-            pantalla = pygame.display.set_mode((evento.w, evento.h), pygame.RESIZABLE)
 
-        ##eventos de disparo
-        if evento.type == pygame.KEYDOWN:
+            # DISPARAR + ENERGÍA
             if evento.key == pygame.K_SPACE:
-                balas.append(Bala(player.x+20 , player.y, direccion=1))
-        
+                if energia >= 10:
+                    energia -= 10
+                    nueva_bala = Bala(
+                    jugador.x + jugador.ancho // 2,
+                    jugador.y
+                    )
+                    balas.append(nueva_bala)
+                else:
+                    energia -= 0
+            
 
 
-    pantalla.fill((255, 255, 255))
+            # BAJAR VIDA (PRUEBA)
+            if evento.key == pygame.K_h:
+                vida -= 10
 
-#Lógica (movimiento, etc.)
+            # SUBIR PUNTAJE (PRUEBA)
+            if evento.key == pygame.K_j:
+                puntaje += 50
+
+            # SUMAR MONEDA (PRUEBA)
+            if evento.key == pygame.K_k:
+                monedas += 1
+
+    # ---------------------------------
+    # TECLAS PRESIONADAS
+    # ---------------------------------
     teclas = pygame.key.get_pressed()
-    player.mover(teclas)
-    player.limite_pantalla(pantalla.get_width() , pantalla.get_height())
-#Dibujar
-    player.dibujar(pantalla)
+
+    # ---------------------------------
+    # MOVIMIENTO DEL JUGADOR
+    # ---------------------------------
+    jugador.mover(teclas)
+    jugador.limite_pantalla(
+        pantalla.get_width(),
+        pantalla.get_height()
+    )
+
+    # ---------------------------------
+    # ACTUALIZAR BALAS
+    # ---------------------------------
     for bala in balas:
         bala.mover()
+
+    # ---------------------------------
+    # ACTUALIZAR ENERGÍA
+    # ---------------------------------
+    
+    if energia < 100:
+        energia += 0.1
+
+    if vida < 0:
+        vida = 0
+
+    # ---------------------------------
+    # ACTUALIZAR HUD
+    # ---------------------------------
+    hud.actualizar(
+        vida=vida,
+        energia=energia,
+        puntaje=puntaje,
+        monedas=monedas
+    )
+
+    # ---------------------------------
+    # DIBUJAR FONDO
+    # ---------------------------------
+    pantalla.fill((100, 100, 100))
+
+    # ---------------------------------
+    # DIBUJAR JUGADOR
+    # ---------------------------------
+    jugador.dibujar(pantalla)
+
+    # ---------------------------------
+    # DIBUJAR BALAS
+    # ---------------------------------
+    for bala in balas:
         bala.dibujar(pantalla)
-#flip()
+
+    # ---------------------------------
+    # DIBUJAR HUD
+    # ---------------------------------
+    hud.dibujar(pantalla)
+
+    # ---------------------------------
+    # ACTUALIZAR PANTALLA
+    # ---------------------------------
     pygame.display.flip()
-#tick()
     reloj.tick(60)
 
+# ---------------------------------
+# CERRAR JUEGO
+# ---------------------------------
 pygame.quit()

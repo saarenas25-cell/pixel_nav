@@ -15,6 +15,7 @@ pixel_nav/
 |   ├──players/
 |   |  ├──__init__.py
 |   |  ├──jugador.py
+|   |  ├──hud.py
 │   ├── proyectiles/
 │   │   ├── __init__.py
 │   │   ├── proyectil.py
@@ -49,6 +50,11 @@ Contiene todo el código fuente del videojuego. Aquí se encuentra la lógica pr
     - Movimiento
     - Renderizado
     - Límites de pantalla
+    **hud.py**
+    -energia
+    -vida
+    -cuadro de vida
+    cuadro de energia
 *utilidades/*: punto donde se encuentran las librerias propias
     **__init__.py**:
     Permite que la carpeta 'utilidades' sea tratada como un módulo de Python y facilita la importación de sus clases.

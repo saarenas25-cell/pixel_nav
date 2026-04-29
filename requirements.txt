@@ -14,10 +14,10 @@ Persona 1 — Gameplay / Lógica
 Se encarga de:
 
 Movimiento jugador ***
-Disparo
+Disparo ***
 Enemigos
 Colisiones
-Sistema de puntaje
+Sistema de puntaje ***
 Power-ups
 Procedural básico
 
@@ -29,7 +29,7 @@ Menú principal:
 - opciones (iniciar juego, opciones sonido, salir)
 Menú pausa
 - opciones (continuar, reiniciar, salir)
-UI (vidas, puntaje)
+UI (vidas, puntaje) ***
 Pantallas (game over, win)
 Sonido (si meten)
 Estados del juego (menu, jugando, pausa)
