@@ -22,10 +22,10 @@ class Jugador:
         pygame.draw.rect(pantalla, self.color, (self.x, self.y, self.ancho, self.alto))
     
     def limite_pantalla(self, ancho, alto):#limites de la pantalla 
-        if self.x < ((ancho/2)-((ancho/2)*0.5)) - self.ancho:
-            self.x = ((ancho/2)-((ancho/2)*0.5)) - self.ancho
-        elif self.x > (ancho/2)+((ancho/2)*0.5) - self.ancho:
-            self.x = (ancho/2)+((ancho/2)*0.5) - self.ancho
+        if self.x < (ancho*0.25) - self.ancho:
+            self.x = (ancho*0.25) - self.ancho
+        elif self.x > (ancho*0.75) - self.ancho:
+            self.x = (ancho*0.75) - self.ancho
         if self.y < alto*0.25 - self.alto:
             self.y = alto*0.25 - self.alto
         elif self.y > alto - self.alto:
