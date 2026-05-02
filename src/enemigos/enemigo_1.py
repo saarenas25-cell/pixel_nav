@@ -30,7 +30,9 @@ class Enemigo:
     @staticmethod
     def generar_enemigo(Enemigos, ANCHO):
         if Enemigo.generar_5s():
-            Enemigos.append(Enemigo(random.randint(int(ANCHO*0.25), int(ANCHO*0.75)), (0 - Enemigo.alto_enemigo)))
+            Enemigos.append(Enemigo(random.randint(int(ANCHO*0.25)+(Enemigo.ancho_enemigo//2)
+                                                   , int(ANCHO*0.75)-(Enemigo.ancho_enemigo//2)),
+                                    (0 - Enemigo.alto_enemigo)))
 
     # ---------------------------------
 

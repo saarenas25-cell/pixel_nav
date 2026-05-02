@@ -15,7 +15,7 @@ Se encarga de:
 
 Movimiento jugador ***
 Disparo ***
-Enemigos
+Enemigos***
 Colisiones
 Sistema de puntaje ***
 Power-ups

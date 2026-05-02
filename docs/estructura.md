@@ -21,8 +21,11 @@ pixel_nav/
 │   │   ├── proyectil.py
 │   │   ├── bala.py
 |   ├──utilidades/
-|      ├──__init__.py
-|      ├──librerias_propias.py
+|   |   ├──__init__.py
+|   |   ├──librerias_propias.py
+|   ├──enemigos/
+|   |   ├──__init__.py
+|   |   ├──enemigo_1.py
 ├── assets/                 ##  **imagenes, sonido, fuesntes**
 ├── data/                   ##  **Almacena datos del juego**
 ├── docs/                   ##  **documentacion**
@@ -60,7 +63,18 @@ Contiene todo el código fuente del videojuego. Aquí se encuentra la lógica pr
     Permite que la carpeta 'utilidades' sea tratada como un módulo de Python y facilita la importación de sus clases.
     **librerias_propia.py**:
     se encuntra reservado para las librerias propias requeridas por el prollecto
-
+*proyectiles/*
+    **__init__.py**:
+    Permite que la carpeta 'utilidades' sea tratada como un módulo de Python y facilita la importación de sus clases.
+    **proyectiles.py**:
+    clase padre que le comparte atributos a las demas clases
+    **bala.py**:
+    tiene la lojica de disparos con el cual se jenera las balas y se eliminan de la lista 
+*proyectiles/*
+    **__init__.py**:
+    Permite que la carpeta 'utilidades' sea tratada como un módulo de Python y facilita la importación de sus clases.
+    **enemigo.py**:
+    esta clase jenera las enemigoas y ademas establebe el tiempo en el que aparese y los elimina de las lista 
 --
 
 ##  assets/ 

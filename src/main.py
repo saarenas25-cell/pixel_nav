@@ -62,12 +62,9 @@ while ejecutando:
 
             # DISPARAR + ENERGÍA
             if evento.key == pygame.K_SPACE:
-                if energia >= 10:
-                    energia -= 10
-                    nueva_bala = Bala(jugador.x + jugador.ancho // 2,jugador.y)
-                    balas.append(nueva_bala)
-                else:
-                    energia -= 0
+                energia = Bala.municion_gastada(energia)
+                nueva_bala = Bala(jugador.x + jugador.ancho // 2,jugador.y)
+                balas.append(nueva_bala)
             
             # BAJAR VIDA (PRUEBA)
             if evento.key == pygame.K_h:
