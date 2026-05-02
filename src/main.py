@@ -65,14 +65,6 @@ while ejecutando:
                 energia = Bala.municion_gastada(energia)
                 nueva_bala = Bala(jugador.x + jugador.ancho // 2,jugador.y)
                 balas.append(nueva_bala)
-            
-            # BAJAR VIDA (PRUEBA)
-            if evento.key == pygame.K_h:
-                vida -= 10
-
-            # SUBIR PUNTAJE (PRUEBA)
-            if evento.key == pygame.K_j:
-                puntaje += 50
 
             # SUMAR MONEDA (PRUEBA)
             if evento.key == pygame.K_k:
@@ -109,8 +101,6 @@ while ejecutando:
         bala.mover()
         bala.borrar(balas, ALTO)
         
-    
-    print(f"Balas: {len(balas)} | Enemigos: {len(Enemigos)}")
 
     # ---------------------------------
     # ACTUALIZAR ENERGÍA
@@ -138,12 +128,15 @@ while ejecutando:
     pantalla.fill((100, 100, 100))
 
     # ---------------------------------
-    # DIBUJAR JUGADOR Y ENEMIGOS
+    # DIBUJAR JUGADOR Y ENEMIGOS Y COLISIONES
     # ---------------------------------
     jugador.dibujar(pantalla)
 
     for enemigo in Enemigos:
         enemigo.dibujar(pantalla) 
+        
+    puntaje += Enemigo.colision_balas(balas, Enemigos)
+    vida += Enemigo.colision_jugador(jugador, Enemigos)
 
     # ---------------------------------
     # DIBUJAR BALAS
