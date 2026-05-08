@@ -26,12 +26,35 @@ pixel_nav/
 |   ├──enemigos/
 |   |   ├──__init__.py
 |   |   ├──enemigo_1.py
-├── assets/                 ##  **imagenes, sonido, fuesntes**
+├── assets/      
+    ├── backgrounds/        ## carpeta de fondos 
+│       ├── espacio.png 
+    ├── sprites/
+│       ├── jugador/
+│   │       ├── nave.png 
+        ├── enemigos/
+│   │       ├── enemigo_1.png
+        ├── explosion
+            ├── explosion_1.png
+│   │       ├── explosion_2.png
+│   │       ├── explosion_3.png
+            ├── explosion_4.png
+            ├── explosion_5.png
+            ├── explosion_6.png
+            ├── explosion_7.png
+            ├── explosion_8.png
+        ├── proyectiles/
+│   │       ├── bala.png
+
 ├── data/                   ##  **Almacena datos del juego**
 ├── docs/                   ##  **documentacion**
 |   ├──documentacion.md
 |   ├──estructura.md
-├── ui/                     ##  **Menús, interfaz y HUD**
+├── ui/     
+    ├── menus/
+│   │   ├── menu_principal.py
+│   │   ├── menu_pausa.py
+│   │   ├── menu_game_over.py                ##  **Menús, interfaz y HUD**
 ├── README.md               ##  **explicacion del prollecto**
 ├── requirements.txt        ##  **dependencias**
 
