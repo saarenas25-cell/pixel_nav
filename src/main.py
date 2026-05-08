@@ -2,7 +2,8 @@ import pygame
 from players.jugador import Jugador 
 from players.hud import HUD
 from proyectiles.bala import Bala
-from enemigos.enemigo_1 import Enemigo
+from enemigos.enemigo_1 import Enemigo_1
+from enemigos.enemigo_2 import Enemigo_2
 
 # ---------------------------------
 # INICIALIZAR PYGAME
@@ -17,7 +18,6 @@ pygame.display.set_caption("Pixel Nav")
 
 ANCHO = pantalla.get_width()
 ALTO = pantalla.get_height()
-aleatorio_enemigo = 0
 reloj = pygame.time.Clock()
 
 # ---------------------------------
@@ -45,11 +45,9 @@ ejecutando = True
 while ejecutando:
 
     # ---------------------------------
-    # EVENTOS
+    # EVENTOS (cosas que pasan una sola vez, como presionar una tecla)
     # ---------------------------------
     for evento in pygame.event.get():
-
-        
 
         if evento.type == pygame.QUIT:
             ejecutando = False
@@ -60,10 +58,10 @@ while ejecutando:
             if evento.key == pygame.K_ESCAPE:
                 ejecutando = False
 
-            # DISPARAR + ENERGÍA
+            # DISPARAR + GASTAR ENERGÍA
             if evento.key == pygame.K_SPACE:
                 energia = Bala.municion_gastada(energia)
-                nueva_bala = Bala(jugador.x + jugador.ancho // 2,jugador.y)
+                nueva_bala = Bala(jugador.x + jugador.ancho // 2, jugador.y)
                 balas.append(nueva_bala)
 
             # SUMAR MONEDA (PRUEBA)
@@ -71,49 +69,60 @@ while ejecutando:
                 monedas += 1
 
     # ---------------------------------
-    # TECLAS PRESIONADAS
+    # TECLAS PRESIONADAS (movimiento continuo)
     # ---------------------------------
     teclas = pygame.key.get_pressed()
 
     # ---------------------------------
-    # generacion de enemigos
+    # GENERAR ENEMIGOS
+    # cada clase maneja su propio timer interno
     # ---------------------------------
-
-    Enemigo.generar_enemigo(Enemigos, ANCHO)
+    Enemigo_1.generar_enemigo(Enemigos, ANCHO)
+    Enemigo_2.generar_enemigo(Enemigos, ANCHO)
 
     # ---------------------------------
-    # MOVIMIENTO DEL JUGADOR Y ENEMIGOS
+    # MOVER JUGADOR Y APLICAR LÍMITES DE PANTALLA
     # ---------------------------------
     jugador.mover(teclas)
-    jugador.limite_pantalla(pantalla.get_width(),pantalla.get_height())
+    jugador.limite_pantalla(ANCHO, ALTO)
 
     # ---------------------------------
-    # ACTUALIZAR ENEMIGOS
+    # MOVER Y BORRAR BALAS
     # ---------------------------------
-    for enemigo in Enemigos:
-        enemigo.mover()
-        enemigo.borrar(Enemigos, ANCHO)
-
-    # ---------------------------------
-    # ACTUALIZAR BALAS
-    # ---------------------------------
-    for bala in balas:
+    for bala in balas[:]:
         bala.mover()
         bala.borrar(balas, ALTO)
-        
 
     # ---------------------------------
-    # ACTUALIZAR ENERGÍA
+    # MOVER Y BORRAR ENEMIGOS
+    # Enemigo_2 necesita ANCHO y ALTO para saber dónde detenerse
+    # Enemigo_1 solo se mueve hacia abajo sin parámetros
     # ---------------------------------
-    
+    for enemigo in Enemigos[:]:
+        enemigo.mover(ANCHO, ALTO)  # cada uno sabe cómo moverse
+        enemigo.borrar(Enemigos, ALTO)
+
+    # ---------------------------------
+    # COLISIONES
+    # se calculan antes de dibujar para que el estado sea correcto
+    # ---------------------------------
+    puntaje += Enemigo_1.colision_balas(balas, Enemigos)
+    vida += Enemigo_1.colision_jugador(jugador, Enemigos)
+
+    # ---------------------------------
+    # ACTUALIZAR ENERGÍA (se recarga sola con el tiempo)
+    # ---------------------------------
     if energia < 100:
         energia += 0.1
 
+    # ---------------------------------
+    # EVITAR QUE VIDA BAJE DE 0
+    # ---------------------------------
     if vida < 0:
         vida = 0
 
     # ---------------------------------
-    # ACTUALIZAR HUD
+    # ACTUALIZAR HUD con los valores actuales
     # ---------------------------------
     hud.actualizar(
         vida=vida,
@@ -122,40 +131,38 @@ while ejecutando:
         monedas=monedas
     )
 
-    # ---------------------------------
-    # DIBUJAR FONDO
-    # ---------------------------------
+    # =================================
+    # DIBUJO — siempre en este orden:
+    # 1. fondo, 2. enemigos, 3. jugador, 4. balas, 5. HUD
+    # el HUD va al final para quedar encima de todo
+    # =================================
+
+    # 1. LIMPIAR PANTALLA con el color de fondo
     pantalla.fill((100, 100, 100))
 
-    # ---------------------------------
-    # DIBUJAR JUGADOR Y ENEMIGOS Y COLISIONES
-    # ---------------------------------
+    # 2. DIBUJAR ENEMIGOS
+    # como están en una sola lista, cada objeto dibuja con su propio color
+    for enemigo in Enemigos:
+        enemigo.dibujar(pantalla)
+
+    # 3. DIBUJAR JUGADOR
     jugador.dibujar(pantalla)
 
-    for enemigo in Enemigos:
-        enemigo.dibujar(pantalla) 
-        
-    puntaje += Enemigo.colision_balas(balas, Enemigos)
-    vida += Enemigo.colision_jugador(jugador, Enemigos)
-
-    # ---------------------------------
-    # DIBUJAR BALAS
-    # ---------------------------------
+    # 4. DIBUJAR BALAS
     for bala in balas:
         bala.dibujar(pantalla)
 
-    # ---------------------------------
-    # DIBUJAR HUD
-    # ---------------------------------
+    # 5. DIBUJAR HUD (encima de todo)
     hud.dibujar(pantalla)
 
     # ---------------------------------
     # ACTUALIZAR PANTALLA
+    # muestra todo lo que se dibujó en este frame
     # ---------------------------------
     pygame.display.flip()
     reloj.tick(60)
 
 # ---------------------------------
-# CERRAR JUEGO
+# CERRAR PYGAME al salir del bucle
 # ---------------------------------
 pygame.quit()
