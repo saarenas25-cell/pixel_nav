@@ -23,10 +23,10 @@ class Bala(proyectiles):
     def municion_gastada(energia):
         if energia >= Bala.costo_proyectil:
             energia -= Bala.costo_proyectil
-            return energia            
+            return energia, True
         else:
             energia -= 0
-            return energia
+            return energia, False
 
 
 
